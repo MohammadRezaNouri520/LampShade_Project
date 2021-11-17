@@ -6,6 +6,7 @@ namespace ShopManagement.Application.Contracts.ProductCategory
     public class CreateProductCategory
     {
         [Required(ErrorMessage =ValidationMessages.IsRequired)]
+        [MaxLength(255, ErrorMessage =ValidationMessages.MaxLength)]
         public string Name { get; set; }
         
         public string Description { get; set; }
