@@ -30,5 +30,9 @@ namespace ShopManagement.Application.Contracts.Slide
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [MaxLength(50, ErrorMessage = ValidationMessages.MaxLength)]
         public string BtnText { get; set; }
+
+        [Required(ErrorMessage = ValidationMessages.IsRequired)]
+        [MaxLength(1000, ErrorMessage = ValidationMessages.MaxLength)]
+        public string Link { get; set; }
     }
 }
