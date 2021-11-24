@@ -1,12 +1,10 @@
-﻿using _0_Framework.Infrastructure;
+﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Domain.ProductAgg;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopManagement.Infrastructure.EFCore.Repository
 {
@@ -62,7 +60,7 @@ namespace ShopManagement.Infrastructure.EFCore.Repository
                     CategoryId = p.CategoryId,
                     Category = p.Category.Name,
                     IsInStock = p.IsInStock,
-                    CreationDate = p.CreationDate.ToString()
+                    CreationDate = p.CreationDate.ToFarsi()
                 });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
