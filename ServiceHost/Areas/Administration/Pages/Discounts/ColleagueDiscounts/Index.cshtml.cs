@@ -55,15 +55,15 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.ColleagueDiscounts
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetActive(long id)
+        public IActionResult OnGetRemove(long id)
         {
-            var result = _colleagueDiscountApplication.Restore(id);
+            var result = _colleagueDiscountApplication.Remove(id);
             return RedirectToPage("./Index");
         }
 
-        public IActionResult OnGetInActive(long id)
+        public IActionResult OnGetRestore(long id)
         {
-            var result = _colleagueDiscountApplication.Remove(id);
+            var result = _colleagueDiscountApplication.Restore(id);
             return RedirectToPage("./Index");
         }
     }

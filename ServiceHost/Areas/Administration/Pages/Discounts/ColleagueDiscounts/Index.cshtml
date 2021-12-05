@@ -72,16 +72,16 @@
                                                href="#showmodal=@Url.Page("./Index","Edit", new {id=discount.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            @if (discount.IsRemoved)
+                                            @if (!discount.IsRemoved)
                                             {
-                                                <a asp-page="./Index" asp-page-handler="InActive" asp-route-id="@discount.Id"
+                                                <a asp-page="./Index" asp-page-handler="Remove" asp-route-id="@discount.Id"
                                                    class="btn btn-danger waves-effect waves-light m-b-5">
                                                     لغو!
                                                 </a>
                                             }
                                             else
                                             {
-                                                <a asp-page="./Index" asp-page-handler="Active" asp-route-id="@discount.Id"
+                                                <a asp-page="./Index" asp-page-handler="Restore" asp-route-id="@discount.Id"
                                                    class="btn btn-success waves-effect waves-light m-b-5">
                                                     فعال سازی!
                                                 </a>

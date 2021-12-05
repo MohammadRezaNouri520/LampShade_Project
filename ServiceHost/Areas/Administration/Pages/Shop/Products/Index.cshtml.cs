@@ -26,15 +26,15 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 
         public void OnGet(ProductSearchModel searchModel)
         {
-            ProductCategories = new SelectList(_productCategoryApplication.GetProductCategories(),"Id","Name");
+            ProductCategories = new SelectList(_productCategoryApplication.GetProductCategories(), "Id", "Name");
             Products = _productApplication.Search(searchModel);
         }
 
         public IActionResult OnGetCreate()
         {
-            var command = new CreateProduct() 
+            var command = new CreateProduct()
             {
-                Categories= _productCategoryApplication.GetProductCategories()
+                Categories = _productCategoryApplication.GetProductCategories()
             };
             return Partial("./Create", command);
         }
@@ -56,26 +56,6 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
         {
             var result = _productApplication.Edit(command);
             return new JsonResult(result);
-        }
-
-        public IActionResult OnGetIsInStock(long id)
-        {
-            var result = _productApplication.InStock(id);
-            if (result.IsSucceeded)
-                return RedirectToPage("./Index");
-
-            Message = result.Message;
-            return RedirectToPage("./Index");
-        }
-
-        public IActionResult OnGetNotInStock(long id)
-        {
-            var result = _productApplication.NotInStock(id);
-            if (result.IsSucceeded)
-                return RedirectToPage("./Index");
-
-            Message = result.Message;
-            return RedirectToPage("./Index");
         }
     }
 }
