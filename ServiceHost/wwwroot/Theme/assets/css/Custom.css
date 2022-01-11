@@ -52,6 +52,10 @@ body {
     margin-left: 10px;
 }
 
+.single-grid-product__price{
+    direction:rtl;
+}
+
 .tab-slider-wrapper .tab-product-navigation .nav .nav-item:last-child {
     margin-right: 10px;
 }

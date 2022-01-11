@@ -45,8 +45,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 
         public IActionResult OnPostCreate(CreateProductPicture command)
         {
-            var result = _productPictureApplication.Create(command);
-            return new JsonResult(result);
+            if(ModelState.IsValid)
+            {
+                var result = _productPictureApplication.Create(command);
+                return new JsonResult(result);
+            }
+            return new JsonResult(false);
         }
 
         public IActionResult OnGetEdit(long id)
@@ -58,8 +62,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 
         public IActionResult OnPostEdit(EditProductPicture command)
         {
-            var result = _productPictureApplication.Edit(command);
-            return new JsonResult(result);
+            if(ModelState.IsValid)
+            {
+                var result = _productPictureApplication.Edit(command);
+                return new JsonResult(result);
+            }
+            return new JsonResult(false);
         }
 
         public IActionResult OnGetRemove(long id)

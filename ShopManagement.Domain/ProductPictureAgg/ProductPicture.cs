@@ -3,7 +3,7 @@ using ShopManagement.Domain.ProductAgg;
 
 namespace ShopManagement.Domain.ProductPictureAgg
 {
-    public class ProductPicture:EntityBase
+    public class ProductPicture : EntityBase
     {
         public string Picture { get; private set; }
         public string PicutreAlt { get; private set; }
@@ -24,7 +24,9 @@ namespace ShopManagement.Domain.ProductPictureAgg
 
         public void Edit(string picture, string picutreAlt, string pictureTitle, long productId)
         {
-            Picture = picture;
+            if (!string.IsNullOrWhiteSpace(picture))
+                Picture = picture;
+
             PicutreAlt = picutreAlt;
             PictureTitle = pictureTitle;
             ProductId = productId;

@@ -1,4 +1,5 @@
-﻿using _01_LampshadeQuery.Contracts.ProductCategory;
+﻿using _01_LampshadeQuery.Contracts.Product;
+using _01_LampshadeQuery.Contracts.ProductCategory;
 using _01_LampshadeQuery.Contracts.Slide;
 using _01_LampshadeQuery.Query;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,10 @@ namespace ShopManagement.Configuration
     {
         public static void Configure(IServiceCollection services, string connectionString)
         {
-            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<Domain.ProductCategoryAgg.IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
 
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<Domain.ProductAgg.IProductRepository, ProductRepository>();
             services.AddTransient<IProductApplication, ProductApplication>();
 
             services.AddTransient<IProductPictureRepository, ProductPictureRepository>();
@@ -36,6 +37,8 @@ namespace ShopManagement.Configuration
             services.AddTransient<ISlideQuery, SlideQuery>();
 
             services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
+
+            services.AddTransient<IProductQuery, ProductQuery>();
 
             services.AddDbContext<ShopContext>(options => 
             {

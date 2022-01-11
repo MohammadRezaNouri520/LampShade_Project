@@ -32,8 +32,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
 
         public IActionResult OnPostCreate(CreateProductCategory command)
         {
-            var result = _productCategoryApplication.Create(command);
-            return new JsonResult(result);
+            if(ModelState.IsValid)
+            {
+                var result = _productCategoryApplication.Create(command);
+                return new JsonResult(result);
+            }
+            return new JsonResult(false);
         }
 
         public IActionResult OnGetEdit(long id)
@@ -44,8 +48,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategories
 
         public JsonResult OnPostEdit(EditProductCategory command)
         {
-            var result = _productCategoryApplication.Edit(command);
-            return new JsonResult(result);
+            if (ModelState.IsValid)
+            {
+                var result = _productCategoryApplication.Edit(command);
+                return new JsonResult(result);
+            }
+            return new JsonResult(false);
         }
     }
 }

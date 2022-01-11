@@ -1,4 +1,5 @@
 ﻿using _0_Framework.Application;
+using Microsoft.AspNetCore.Http;
 using ShopManagement.Application.Contracts.Product;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,8 +11,9 @@ namespace ShopManagement.Application.Contracts.ProductPicture
         [Range(1, long.MaxValue, ErrorMessage =ValidationMessages.IsRequired)]
         public long ProductId { get; set; }
 
-        [Required(ErrorMessage =ValidationMessages.IsRequired)]
-        public string Picture { get; set; }
+        [MaxFileSize(3*1024*1024, ErrorMessage = ValidationMessages.MaxFileSize)]
+        [FileExtensionLimitation(new string[] { ".jpg", ".jpeg", ".png" }, ErrorMessage = ValidationMessages.FileExtension)]
+        public IFormFile Picture { get; set; }
         
         [Required(ErrorMessage =ValidationMessages.IsRequired)]
         public string PictureAlt { get; set; }
