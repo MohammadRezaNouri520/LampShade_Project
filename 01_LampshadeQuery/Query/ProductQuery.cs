@@ -137,6 +137,7 @@ namespace _01_LampshadeQuery.Query
             var product = _shopContext.Products
                 .Include(x => x.Category)
                 .Include(x => x.ProductPictures)
+                .Include(x => x.Comments)
                 .Select(x => new ProductQueryModel
                 {
                     Id = x.Id,
@@ -161,7 +162,16 @@ namespace _01_LampshadeQuery.Query
                             PicutreAlt=p.PicutreAlt,
                             PictureTitle=p.PictureTitle,
                             IsRemoved=p.IsRemoved
-                        }).ToList()
+                        }).ToList(),
+                    Comments = x.Comments
+                        .Where(c => !c.IsCanceled && c.IsConfirmed)
+                        .Select(c => new CommentQueryModel 
+                        {
+                            Id=c.Id,
+                            Name=c.Name,
+                            Message=c.Message
+                        })
+                        .OrderByDescending(c => c.Id).ToList()
                 })
                 .AsNoTracking()
                 .FirstOrDefault(x => x.Slug == slug);
