@@ -57,6 +57,16 @@ namespace BlogManagement.Application
             return operation.Succeeded();
         }
 
+        public List<ArticleCategoryViewModel> GetArticleCategoriesSelectList()
+        {
+            return _articleCategoryRepository.GetArticleCategoriesSelectList();
+        }
+
+        public string GetArticleCategorySlugBy(long id)
+        {
+            return _articleCategoryRepository.GetArticleCategorySlugBy(id);
+        }
+
         public EditArticleCategory GetDetails(long id)
         {
             return _articleCategoryRepository.GetDetails(id);

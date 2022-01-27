@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Administration\Pages\Blog\Articles\Create.cshtml" />
+    <Content Remove="Pages\Article.cshtml" />
+    <Content Remove="Pages\ArticleCategory.cshtml" />
     <Content Remove="Pages\Product.cshtml" />
     <Content Remove="Pages\ProductCategory.cshtml" />
   </ItemGroup>
@@ -31,17 +34,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Administration\Pages\Blog\Articles\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Article.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\ArticleCategory.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Product.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\ProductCategory.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Administration\Pages\Blog\Articles\Create.cshtml" />
+    <None Include="Pages\Article.cshtml" />
+    <None Include="Pages\ArticleCategory.cshtml" />
     <None Include="Pages\Product.cshtml" />
     <None Include="Pages\ProductCategory.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Product.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\Administration\Pages\Blog\Articles\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Article.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\ArticleCategory.cshtml" />
   </ItemGroup>
 
 </Project>

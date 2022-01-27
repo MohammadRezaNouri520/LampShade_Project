@@ -1,0 +1,124 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Blog.Articles.CreateModel
+@{
+    Layout = "Shared/_AdminLayout";
+    ViewData["title"] = "| ایجاد مقاله جدید";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ایجاد مقاله جدید</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Article.Title"></label>
+                                <input class="form-control" id="title" asp-for="Article.Title" onchange="makeSlug('title', 'slug')">
+                                <span asp-validation-for="Article.Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Article.Slug"></label>
+                                <input class="form-control" id="slug" asp-for="Article.Slug">
+                                <span asp-validation-for="Article.Slug" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Article.CategoryId"></label>
+                                <select class="form-control" asp-for="Article.CategoryId" asp-items="Model.ArticleCategories">
+                                    <option value="0">انتخاب گروه مقاله</option>
+                                </select>
+                                <span asp-validation-for="Article.CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Article.Picture"></label>
+                                <input class="form-control" asp-for="Article.Picture" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Article.PictureAlt"></label>
+                                <input class="form-control" asp-for="Article.PictureAlt">
+                                <span asp-validation-for="Article.PictureAlt" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Article.PictureTitle"></label>
+                                <input class="form-control" asp-for="Article.PictureTitle">
+                                <span asp-validation-for="Article.PictureTitle" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Article.ShortDescription"></label>
+                                <textarea class="form-control" id="shortDescription" asp-for="Article.ShortDescription" rows="3" onchange="fillField('shortDescription', 'metaDescription')"></textarea>
+                                <span asp-validation-for="Article.ShortDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Article.MetaDescription"></label>
+                                <textarea class="form-control" id="metaDescription" asp-for="Article.MetaDescription" rows="3"></textarea>
+                                <span asp-validation-for="Article.MetaDescription" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Article.Content"></label>
+                                <textarea class="form-control rich-text" asp-for="Article.Content" rows="10"></textarea>
+                                <span asp-validation-for="Article.Content" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="Article.Keywords"></label>
+                                <input class="form-control" asp-for="Article.Keywords">
+                                <span asp-validation-for="Article.Keywords" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="Article.PublishDate"></label>
+                                <input class="form-control persianDateInput" asp-for="Article.PublishDate">
+                                <span asp-validation-for="Article.PublishDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label asp-for="Article.CanonicalAddress"></label>
+                                <input class="form-control" asp-for="Article.CanonicalAddress">
+                                <span asp-validation-for="Article.CanonicalAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-inverse btn-custom waves-effect waves-light" asp-page="./Index">بازگشت</a>
+                    <button type="submit" class="btn btn-purple waves-effect waves-light">ایجاد</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

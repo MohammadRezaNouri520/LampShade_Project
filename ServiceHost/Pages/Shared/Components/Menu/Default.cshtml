@@ -1,4 +1,4 @@
-﻿
+﻿@model _01_LampshadeQuery.MenuModel
 
 <div class="header-area header-sticky">
     <div class="container">
@@ -20,26 +20,26 @@
                                 </li>
 
                                 <li class="menu-item-has-children">
-                                    <a href="#">محصولات</a>
+                                    <a>محصولات</a>
                                     <ul class="sub-menu">
-                                        <li>
-                                            <a href="#">دکوری</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">نگهدارنده</a>
-                                        </li>
+                                        @foreach (var category in Model.ProductCategories)
+                                        {
+                                            <li>
+                                                <a asp-page="/ProductCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
 
                                 <li class="menu-item-has-children">
-                                    <a href="blog-left-sidebar.html">بلاگ</a>
+                                    <a>بلاگ</a>
                                     <ul class="sub-menu">
-                                        <li>
-                                            <a href="#">مقاله 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">مقاله 2</a>
-                                        </li>
+                                        @foreach (var category in Model.ArticleCategories)
+                                        {
+                                            <li>
+                                                <a asp-page="/ArticleCategory" asp-route-id="@category.Slug">@category.Name</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
 
@@ -196,7 +196,7 @@
                                             <div class="header-cart-icon">
                                                 <a href="cart.html">
                                                     <i class="ion-bag"></i>
-                                                    <span class="counter">3</span>
+                                                    <span class="counter">2</span>
                                                 </a>
                                             </div>
                                         </li>
@@ -317,7 +317,7 @@
                     </a>
                 </div>
             </div>
-        
+
         </div>
     </div>
 

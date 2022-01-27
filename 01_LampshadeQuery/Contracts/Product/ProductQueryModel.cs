@@ -21,7 +21,7 @@ namespace _01_LampshadeQuery.Contracts.Product
         public string Code { get; set; }
         public string Description { get; set; }
         public string Keywords { get; set; }
-        public string MetaDesctiption { get; set; }
+        public string MetaDescription { get; set; }
         public bool IsInStock { get; set; }
         public List<ProductPictureQueryModel> Pictures { get; set; }
         public List<CommentQueryModel> Comments { get; set; }

@@ -149,7 +149,7 @@ namespace _01_LampshadeQuery.Query
                     ShortDescription = x.ShortDescription,
                     Description = x.Description,
                     Keywords = x.Keywords,
-                    MetaDesctiption = x.MetaDesctiption,
+                    MetaDescription = x.MetaDesctiption,
                     Picture = x.Picture,
                     PictureAlt = x.PictureAlt,
                     PictureTitle = x.PictureTitle,

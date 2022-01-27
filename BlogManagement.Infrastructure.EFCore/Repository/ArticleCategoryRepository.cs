@@ -2,6 +2,7 @@
 using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.ArticleCategory;
 using BlogManagement.Domain.ArticleCategoryAgg;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,19 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
             _context = context;
         }
 
+        public List<ArticleCategoryViewModel> GetArticleCategoriesSelectList()
+        {
+            return _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+        }
+
+        public string GetArticleCategorySlugBy(long id)
+        {
+            return _context.ArticleCategories.FirstOrDefault(x => x.Id == id).Slug;
+        }
 
         public EditArticleCategory GetDetails(long id)
         {
@@ -36,14 +50,16 @@ namespace BlogManagement.Infrastructure.EFCore.Repository
 
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel searchModel)
         {
-            var query = _context.ArticleCategories.Select(x => new ArticleCategoryViewModel
+            var query = _context.ArticleCategories
+                .Include(x => x.Articles)
+                .Select(x => new ArticleCategoryViewModel
             {
                 Id = x.Id,
-                Picture=x.Picture,
-                Name=x.Name,
+                Picture = x.Picture,
+                Name = x.Name,
                 Description = x.Description,
                 ShowOrder = x.ShowOrder,
-                //TODO: ArticlesCount = ?
+                ArticlesCount = x.Articles.Count(a => !a.IsRemoved),
                 CreationDate = x.CreationDate.ToFarsi()
             });
 

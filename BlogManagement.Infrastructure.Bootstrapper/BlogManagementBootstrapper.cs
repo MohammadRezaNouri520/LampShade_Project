@@ -1,5 +1,10 @@
-﻿using BlogManagement.Application;
+﻿using _01_LampshadeQuery.Contracts.Article;
+using _01_LampshadeQuery.Contracts.ArticleCategory;
+using _01_LampshadeQuery.Query;
+using BlogManagement.Application;
+using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
+using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Domain.ArticleCategoryAgg;
 using BlogManagement.Infrastructure.EFCore;
 using BlogManagement.Infrastructure.EFCore.Repository;
@@ -10,12 +15,18 @@ namespace BlogManagement.Infrastructure.Bootstrapper
 {
     public class BlogManagementBootstrapper
     {
-        public static void Configure(IServiceCollection service, string connectionString)
+        public static void Configure(IServiceCollection services, string connectionString)
         {
-            service.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
-            service.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
+            services.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
+            services.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
 
-            service.AddDbContext<BlogContext>(options => options.UseSqlServer(connectionString));
+            services.AddTransient<IArticleRepository, ArticleRepository>();
+            services.AddTransient<IArticleApplication, ArticleApplication>();
+
+            services.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();
+            services.AddTransient<IArticleQuery, ArticleQuery>();
+
+            services.AddDbContext<BlogContext>(options => options.UseSqlServer(connectionString));
         }
     }
 }

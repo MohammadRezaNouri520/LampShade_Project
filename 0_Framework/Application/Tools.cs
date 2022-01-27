@@ -8,9 +8,52 @@ namespace _0_Framework.Application
         public static string[] MonthNames =
             {"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"};
 
-        public static string[] DayNames = {"شنبه", "یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه"};
-        public static string[] DayNamesG = {"یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه", "شنبه"};
+        public static string[] DayNames = { "شنبه", "یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه" };
+        public static string[] DayNamesG = { "یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه", "شنبه" };
 
+        public static string ToPersianDay(this DateTime date)
+        {
+            if (date == new DateTime())
+                return "";
+
+            var pc = new PersianCalendar();
+            var day = pc.GetDayOfMonth(date).ToString("00");
+            return day;
+        }
+
+        public static string ToPersianMonth(this DateTime date)
+        {
+            if (date == new DateTime())
+                return "";
+
+            var pc = new PersianCalendar();
+            var monthNumber = pc.GetMonth(date);
+            var monthName = MonthNames[monthNumber - 1];
+
+            return monthName;
+        }
+
+        public static string ToPersianYear(this DateTime date)
+        {
+            if (date == new DateTime())
+                return "";
+
+            var pc = new PersianCalendar();
+            var year = pc.GetYear(date).ToString();
+            return year;
+        }
+
+        public static string ToFullPersianDate(this DateTime date)
+        {
+            if (date == new DateTime())
+                return "";
+
+            var pc = new PersianCalendar();
+            var monthNumber = pc.GetMonth(date);
+            var monthName = MonthNames[monthNumber - 1];
+
+            return $"{pc.GetDayOfMonth(date).ToString("00")} {monthName} {pc.GetYear(date)}";
+        }
 
         public static string ToFarsi(this DateTime? date)
         {
@@ -32,7 +75,7 @@ namespace _0_Framework.Application
             var pc = new PersianCalendar();
             return $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00}";
         }
-        
+
         public static string ToDiscountFormat(this DateTime date)
         {
             if (date == new DateTime()) return "";
@@ -51,8 +94,8 @@ namespace _0_Framework.Application
                 $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00} {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
         }
 
-        private static readonly string[] Pn = {"۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"};
-        private static readonly string[] En = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+        private static readonly string[] Pn = { "۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹" };
+        private static readonly string[] En = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
         public static string ToEnglishNumber(this string strNum)
         {
