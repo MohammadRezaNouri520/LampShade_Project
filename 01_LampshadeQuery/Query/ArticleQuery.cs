@@ -1,6 +1,8 @@
 ﻿using _0_Framework.Application;
 using _01_LampshadeQuery.Contracts.Article;
+using _01_LampshadeQuery.Contracts.Comment;
 using BlogManagement.Infrastructure.EFCore;
+using CommentManagement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace _01_LampshadeQuery.Query
     public class ArticleQuery : IArticleQuery
     {
         private readonly BlogContext _blogContext;
+        private readonly CommentContext _commentContext;
 
-        public ArticleQuery(BlogContext blogContext)
+        public ArticleQuery(BlogContext blogContext, CommentContext commentContext)
         {
             _blogContext = blogContext;
+            _commentContext = commentContext;
         }
 
         public ArticleQueryModel GetArticleDetails(string slug)
@@ -25,6 +29,7 @@ namespace _01_LampshadeQuery.Query
                  .Where(x => x.PublishDate <= DateTime.Now)
                  .Select(x => new ArticleQueryModel
                  {
+                     Id=x.Id,
                      Slug = x.Slug,
                      Title = x.Title,
                      Category = x.ArticleCategory.Name,
@@ -43,6 +48,29 @@ namespace _01_LampshadeQuery.Query
 
             if (!string.IsNullOrWhiteSpace(article.Keywords))
                 article.KeywordsList = article.Keywords.Split("،").ToList();
+
+            var comments = _commentContext.Comments
+                .Where(c => c.OwnerRecordId == article.Id)
+                .Where(c => c.Type == CommentType.Article)
+                .Where(c => !c.IsCanceled && c.IsConfirmed)
+                .Select(c => new CommentQueryModel 
+                {
+                    Id=c.Id,
+                    Name=c.Name,
+                    Message=c.Message,
+                    CreationDate=c.CreationDate.ToFullPersianDate(),
+                    ParentId=c.ParentId
+                })
+                .OrderByDescending(c => c.Id)
+                .ToList();
+
+            foreach (var comment in comments)
+            {
+                if (comment.ParentId > 0)
+                    comment.ParentName = _commentContext.Comments.FirstOrDefault(x => x.Id == comment.ParentId)?.Name;
+            }
+
+            article.Comments = comments;
 
             return article;
         }

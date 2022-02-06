@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using _01_LampshadeQuery.Contracts.Comment;
+using System.Collections.Generic;
 
 namespace _01_LampshadeQuery.Contracts.Product
 {
@@ -34,12 +35,5 @@ namespace _01_LampshadeQuery.Contracts.Product
         public string PictureTitle { get; set; }
         public bool IsRemoved { get; set; }
         public long ProductId { get; set; }
-    }
-
-    public class CommentQueryModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Message { get; set; }
     }
 }

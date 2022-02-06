@@ -278,19 +278,21 @@
                                                                     </div>*@
                                                                 <div class="col-md-6 col-12 form-group">
                                                                     <label for="name">نام:</label>
-                                                                    <input id="name" name="name" placeholder="مثال: علی محمدی" type="text" required>
+                                                                    <input asp-for="Comment.Name">
+                                                                    <span class="text-danger" asp-validation-for="Comment.Name"></span>
                                                                 </div>
                                                                 <div class="col-md-6 col-12 form-group">
                                                                     <label for="email">ایمیل: </label>
-                                                                    <input id="email" name="email" placeholder="مثال: Ali@gmail.com"
-                                                                           type="email" required>
+                                                                    <input asp-for="Comment.Email">
+                                                                    <span class="text-danger" asp-validation-for="Comment.Email"></span>
                                                                 </div>
                                                                 <div class="col-12 form-group">
                                                                     <label for="your-review">نظر شما:</label>
-                                                                    <textarea name="message" id="message" required
+                                                                    <textarea asp-for="Comment.Message"
                                                                               placeholder="نظر خود را بنویسید... "></textarea>
                                                                 </div>
-                                                                <input type="hidden" name="productId" value="@Model.Product.Id" />
+                                                                <span class="text-danger" asp-validation-for="Comment.Message"></span>
+                                                                <input type="hidden" asp-for="Comment.OwnerRecordId" value="@Model.Product.Id" />
                                                                 <input type="hidden" name="productSlug" value="@Model.Product.Slug" />
                                                                 <div class="col-12">
                                                                     <input value="ارسال" type="submit">

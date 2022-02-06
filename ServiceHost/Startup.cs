@@ -1,5 +1,6 @@
 using _0_Framework.Application;
 using BlogManagement.Infrastructure.Bootstrapper;
+using CommentManagement.Infrastructure.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using InventoryManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ namespace ServiceHost
             DiscountManagementBootstrapper.Configure(services, connectionString);
             InventoryManagementBootstrapper.Configure(services, connectionString);
             BlogManagementBootstrapper.Configure(services, connectionString);
+            CommentManagementBootstrapper.Configure(services, connectionString);
 
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 

@@ -1,5 +1,7 @@
 ﻿using _0_Framework.Application;
+using _01_LampshadeQuery.Contracts.Comment;
 using _01_LampshadeQuery.Contracts.Product;
+using CommentManagement.Infrastructure.EFCore;
 using DiscountManagement.Infrastructure.EFCore;
 using InventoryManagement.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +9,6 @@ using ShopManagement.Infrastructure.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _01_LampshadeQuery.Query
 {
@@ -17,12 +17,14 @@ namespace _01_LampshadeQuery.Query
         private readonly ShopContext _shopContext;
         private readonly InventoryContext _inventoryContext;
         private readonly DiscountContext _discountContext;
+        private readonly CommentContext _commentContext;
 
-        public ProductQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext)
+        public ProductQuery(ShopContext shopContext, InventoryContext inventoryContext, DiscountContext discountContext, CommentContext commentContext)
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
+            _commentContext = commentContext;
         }
 
         public List<ProductQueryModel> GetLatestArrivals()
@@ -132,12 +134,11 @@ namespace _01_LampshadeQuery.Query
         }
 
 
-        public ProductQueryModel GetDetails(string slug)
+        public ProductQueryModel GetProductDetails(string slug)
         {
             var product = _shopContext.Products
                 .Include(x => x.Category)
                 .Include(x => x.ProductPictures)
-                .Include(x => x.Comments)
                 .Select(x => new ProductQueryModel
                 {
                     Id = x.Id,
@@ -158,20 +159,11 @@ namespace _01_LampshadeQuery.Query
                         .Select(p => new ProductPictureQueryModel
                         {
                             ProductId = x.Id,
-                            Picture=p.Picture,
-                            PicutreAlt=p.PicutreAlt,
-                            PictureTitle=p.PictureTitle,
-                            IsRemoved=p.IsRemoved
-                        }).ToList(),
-                    Comments = x.Comments
-                        .Where(c => !c.IsCanceled && c.IsConfirmed)
-                        .Select(c => new CommentQueryModel 
-                        {
-                            Id=c.Id,
-                            Name=c.Name,
-                            Message=c.Message
-                        })
-                        .OrderByDescending(c => c.Id).ToList()
+                            Picture = p.Picture,
+                            PicutreAlt = p.PicutreAlt,
+                            PictureTitle = p.PictureTitle,
+                            IsRemoved = p.IsRemoved
+                        }).ToList()
                 })
                 .AsNoTracking()
                 .FirstOrDefault(x => x.Slug == slug);
@@ -198,6 +190,18 @@ namespace _01_LampshadeQuery.Query
                     product.HasDiscount = product.DiscountRate > 0;
                 }
             }
+
+            product.Comments = _commentContext.Comments
+                        .Where(c => c.OwnerRecordId == product.Id)
+                        .Where(c => c.Type == CommentType.Product)
+                        .Where(c => !c.IsCanceled && c.IsConfirmed)
+                        .Select(c => new CommentQueryModel
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            Message = c.Message
+                        }).OrderByDescending(c => c.Id).ToList();
+
             return product;
         }
 
