@@ -9,6 +9,8 @@ using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Application.Contracts.Slide;
+using ShopManagement.Domain.ProductAgg;
+using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Domain.SlideAgg;
 using ShopManagement.Infrastructure.EFCore;
@@ -20,10 +22,10 @@ namespace ShopManagement.Configuration
     {
         public static void Configure(IServiceCollection services, string connectionString)
         {
-            services.AddTransient<Domain.ProductCategoryAgg.IProductCategoryRepository, ProductCategoryRepository>();
+            services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
 
-            services.AddTransient<Domain.ProductAgg.IProductRepository, ProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductApplication, ProductApplication>();
 
             services.AddTransient<IProductPictureRepository, ProductPictureRepository>();

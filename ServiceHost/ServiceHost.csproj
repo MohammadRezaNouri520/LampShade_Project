@@ -11,6 +11,7 @@
     <Content Remove="Pages\ArticleCategory.cshtml" />
     <Content Remove="Pages\Product.cshtml" />
     <Content Remove="Pages\ProductCategory.cshtml" />
+    <Content Remove="Pages\Register.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\BlogManagement.Infrastructure.Bootstrapper\BlogManagement.Infrastructure.Bootstrapper.csproj" />
     <ProjectReference Include="..\CommentManagement.Infrastructure.Configuration\CommentManagement.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\DiscountManagement.Infrastructure.Configuration\DiscountManagement.Infrastructure.Configuration.csproj" />
@@ -40,6 +42,7 @@
     <_ContentIncludedByDefault Remove="Pages\ArticleCategory.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Product.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\ProductCategory.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Register.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +51,7 @@
     <None Include="Pages\ArticleCategory.cshtml" />
     <None Include="Pages\Product.cshtml" />
     <None Include="Pages\ProductCategory.cshtml" />
+    <None Include="Pages\Register.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +68,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\ArticleCategory.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Register.cshtml" />
   </ItemGroup>
 
 </Project>

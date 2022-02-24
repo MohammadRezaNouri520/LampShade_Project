@@ -9,9 +9,11 @@ namespace InventoryManagement.Application.Contracts.Inventory
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [Range(1,long.MaxValue, ErrorMessage =ValidationMessages.IsRequired)]
+        [Display(Name ="تعداد")]
         public long Count { get; set; }
 
         [Required(ErrorMessage =ValidationMessages.IsRequired)]
+        [Display(Name ="توضیحات")]
         public string Description { get; set; }
     }
 }

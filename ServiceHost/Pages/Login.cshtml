@@ -1,0 +1,85 @@
+﻿@page
+@model ServiceHost.Pages.LoginModel
+@{
+    ViewData["Title"] = "ورود به سایت";
+}
+
+
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h2 class="breadcrumb-content__title">ورود به سایت</h2>
+                        <ul class="breadcrumb-content__page-map">
+                            <li><a asp-page="/Index">صفحه اصلی</a></li>
+                            <li class="active">ورود به سایت</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row justify-content-md-center">
+                            <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
+                                @if (!string.IsNullOrWhiteSpace(Model.LoginMessage))
+                                {
+                                    <div class="alert alert-danger text-center">
+                                        @Model.LoginMessage
+                                    </div>
+                                }
+                                <form method="post">
+                                    <div class="login-form">
+                                        <h4 class="login-title">ورود به سایت</h4>
+                                        <div class="row">
+                                            <div class="col-md-12 col-12">
+                                                <label asp-for="LoginUser.UserName"></label>
+                                                <input class="form-control" asp-for="LoginUser.UserName">
+                                                <span class="text-danger" asp-validation-for="LoginUser.UserName"></span>
+                                            </div>
+                                            <div class="col-12">
+                                                <label asp-for="LoginUser.Password"></label>
+                                                <input class="form-control" asp-for="LoginUser.Password">
+                                                <span class="text-danger" asp-validation-for="LoginUser.Password"></span>
+                                            </div>
+                                            @*<div class="col-sm-6">
+
+                                                    <div class="check-box d-inline-block ml-0 ml-md-2 pull-right">
+                                                        <input type="checkbox" id="remember_me">
+                                                        <label for="remember_me">مرا به خاطر بسپار</label>
+                                                    </div>
+
+                                                </div>*@
+
+                                            <div class="col-sm-6 text-left text-sm-right">
+                                                <span><i class="fa fa-lock"></i></span><a href="#" class="forget-pass-link"> رمز عبور را فراموش کرده اید؟</a>
+                                            </div>
+                                            <div class="col-sm-6 text-left text-sm-right">
+                                                <span><i class="fa fa-user-plus"></i></span><a asp-page="/Register" class="forget-pass-link"> ثبت نام در سایت</a>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <button class="register-button">ورود</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

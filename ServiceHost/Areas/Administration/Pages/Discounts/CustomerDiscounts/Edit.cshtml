@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="ProductId" class="control-label">انتخاب محصول</label>
+                    <label asp-for="ProductId" class="control-label"></label>
                     <select class="form-control" asp-for="ProductId"
                             asp-items='new SelectList(Model.Products, "Id", "Name")'>
                         <option value="0">انتخاب محصول</option>
@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="DiscountRate" class="control-label">درصد تخفیف</label>
+                    <label asp-for="DiscountRate" class="control-label"></label>
                     <input type="text" class="form-control" asp-for="DiscountRate">
                     <span asp-validation-for="DiscountRate" class="error"></span>
                 </div>
@@ -36,14 +36,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="StartDate" class="control-label">تاریخ شروع</label>
+                    <label asp-for="StartDate" class="control-label"></label>
                     <input class="form-control persianDateInput" asp-for="StartDate">
                     <span asp-validation-for="StartDate" class="error"></span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="EndDate" class="control-label">تاریخ پایان</label>
+                    <label asp-for="EndDate" class="control-label"></label>
                     <input class="form-control persianDateInput" asp-for="EndDate">
                     <span asp-validation-for="EndDate" class="error"></span>
                 </div>
@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group no-margin">
-                    <label asp-for="Description" class="control-label">علت تخفیف</label>
+                    <label asp-for="Description" class="control-label"></label>
                     <textarea class="form-control autogrow" asp-for="Description"
                               style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
                     <span asp-validation-for="Description" class="error"></span>

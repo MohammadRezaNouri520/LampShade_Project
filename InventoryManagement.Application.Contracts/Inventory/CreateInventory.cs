@@ -9,10 +9,12 @@ namespace InventoryManagement.Application.Contracts.Inventory
     {
         [Required(ErrorMessage =ValidationMessages.IsRequired)]
         [Range(1, long.MaxValue, ErrorMessage =ValidationMessages.IsRequired)]
+        [Display(Name ="محصول")]
         public long ProductId { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         [Range(1, double.MaxValue, ErrorMessage = ValidationMessages.IsRequired)]
+        [Display(Name ="قیمت واحد")]
         public double UnitPrice { get; set; }
 
         public List<ProductViewModel> Products { get; set; }
