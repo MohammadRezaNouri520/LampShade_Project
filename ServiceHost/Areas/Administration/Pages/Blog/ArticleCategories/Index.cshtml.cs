@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.ArticleCategory;
+using BlogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -30,6 +32,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
             return Partial("./Create", command);
         }
 
+        [NeedsPermission(BlogPermissions.CreateArticleCategory)]
         public IActionResult OnPostCreate(CreateArticleCategory command)
         {
             if(ModelState.IsValid)
@@ -46,6 +49,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
             return Partial("./Edit", command);
         }
 
+        [NeedsPermission(BlogPermissions.EditArticleCategory)]
         public IActionResult OnPostEdit(EditArticleCategory command)
         {
             if(ModelState.IsValid)

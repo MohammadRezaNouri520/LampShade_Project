@@ -1,7 +1,22 @@
 ﻿@using _0_Framework.Infrastructure
+@using ShopManagement.Infrastructure.Configuration.Permissions
+@using InventoryManagement.Infrastructure.Configuration.Permissions
+@using DiscountManagement.Infrastructure.Configuration.Permissions
+@using CommentManagement.Infrastructure.Configuration.Permissions
+@using BlogManagement.Infrastructure.Configuration.Permissions
+@using AccountManagement.Infrastructure.Configuration.Permissions
 @inject _0_Framework.Application.IAuthHelper AuthHelper;
 @{
     var currentUserInfo = AuthHelper.CurrentUserInfo();
+    var shopAccessor = currentUserInfo.Permissions.Any(x =>
+    x == ShopPermissions.ListProductCategories || x == ShopPermissions.ListProductPictures ||
+    x == ShopPermissions.ListProducts || x == ShopPermissions.ListSlides);
+
+    var discountAccessor = currentUserInfo.Permissions.Any(x => x == DiscountPermissions.ListColleagueDiscounts || x == DiscountPermissions.ListCustomerDiscounts);
+
+    var accountAccessor = currentUserInfo.Permissions.Any(x => x == AccountPermissions.ListAccounts || x == AccountPermissions.ListRoles);
+
+    var blogAccessor = currentUserInfo.Permissions.Any(x => x == BlogPermissions.ListArticleCategories || x == BlogPermissions.ListArticles);
 }
 
 <div class="left side-menu">
@@ -29,53 +44,63 @@
                 <li>
                     <a asp-page="/Index" class="waves-effect active"><i class="fa fa-home"></i><span> داشبورد </span></a>
                 </li>
-                @if (AuthHelper.CurrentUserRole() == Roles.Administrator || AuthHelper.CurrentUserRole() == Roles.SellManager)
+
+                <li permission="@InventoryPermissions.ListInventory">
+                    <a asp-area="Administration" asp-page="/Inventory/Index" class="waves-effect"><i class="fa fa-truck"></i><span> انبارداری </span></a>
+                </li>
+
+                @if (shopAccessor)
                 {
-                    <li>
-                        <a asp-area="Administration" asp-page="/Inventory/Index" class="waves-effect"><i class="fa fa-truck"></i><span> انبارداری </span></a>
-                    </li>
                     <li class="has_sub">
                         <a class="waves-effect"><i class="fa fa-shopping-cart"></i><span> فروشگاه </span><span class="pull-right"><i class="md md-add"></i></span></a>
                         <ul class="list-unstyled">
-                            <li><a asp-area="Administration" asp-page="/Shop/Slides/Index">اسلایدر</a></li>
-                            <li><a asp-area="Administration" asp-page="/Shop/ProductCategories/Index">گروه محصولات</a></li>
-                            <li><a asp-area="Administration" asp-page="/Shop/Products/Index">محصولات</a></li>
-                            <li><a asp-area="Administration" asp-page="/Shop/ProductPictures/Index">عکس محصولات</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub">
-                        <a class="waves-effect"><i class="fa fa-tachometer"></i><span> سیستم تخفیفات </span><span class="pull-right"><i class="md md-add"></i></span></a>
-                        <ul class="list-unstyled">
-                            <li><a asp-area="Administration" asp-page="/Discounts/CustomerDiscounts/Index">تخفیفات مشتری</a></li>
-                            <li><a asp-area="Administration" asp-page="/Discounts/ColleagueDiscounts/Index">تخفیفات همکاری</a></li>
+                            <li permission="@ShopPermissions.ListSlides"><a asp-area="Administration" asp-page="/Shop/Slides/Index">اسلایدر</a></li>
+                            <li permission="@ShopPermissions.ListProductCategories"><a asp-area="Administration" asp-page="/Shop/ProductCategories/Index">گروه محصولات</a></li>
+                            <li permission="@ShopPermissions.ListProducts"><a asp-area="Administration" asp-page="/Shop/Products/Index">محصولات</a></li>
+                            <li permission="@ShopPermissions.ListProductPictures"><a asp-area="Administration" asp-page="/Shop/ProductPictures/Index">عکس محصولات</a></li>
                         </ul>
                     </li>
                 }
 
-                @if (AuthHelper.CurrentUserRole() == Roles.Administrator)
+                @if (discountAccessor)
+                {
+                    <li class="has_sub">
+                        <a class="waves-effect"><i class="fa fa-tachometer"></i><span> سیستم تخفیفات </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                        <ul class="list-unstyled">
+                            <li permission="@DiscountPermissions.ListCustomerDiscounts"><a asp-area="Administration" asp-page="/Discounts/CustomerDiscounts/Index">تخفیفات مشتری</a></li>
+                            <li permission="@DiscountPermissions.ListColleagueDiscounts"><a asp-area="Administration" asp-page="/Discounts/ColleagueDiscounts/Index">تخفیفات همکاری</a></li>
+                        </ul>
+                    </li>
+                }
+
+
+                @if (accountAccessor)
                 {
                     <li class="has_sub">
                         <a class="waves-effect"><i class="fa fa-users"></i><span> سیستم کاربران </span><span class="pull-right"><i class="md md-add"></i></span></a>
                         <ul class="list-unstyled">
-                            <li><a asp-area="Administration" asp-page="/Accounts/Account/Index">کاربران</a></li>
-                            <li><a asp-area="Administration" asp-page="/Accounts/Role/Index">نقش ها</a></li>
+                            <li permission="@AccountPermissions.ListAccounts"><a asp-area="Administration" asp-page="/Accounts/Account/Index">کاربران</a></li>
+                            <li permission="@AccountPermissions.ListRoles"><a asp-area="Administration" asp-page="/Accounts/Role/Index">نقش ها</a></li>
                         </ul>
                     </li>
                 }
 
-                @if (AuthHelper.CurrentUserRole() == Roles.Administrator || AuthHelper.CurrentUserRole() == Roles.ContentManager)
+
+                @if (blogAccessor)
                 {
                     <li class="has_sub">
                         <a class="waves-effect"><i class="fa fa-dashcube"></i><span> بلاگ </span><span class="pull-right"><i class="md md-add"></i></span></a>
                         <ul class="list-unstyled">
-                            <li><a asp-area="Administration" asp-page="/Blog/Articles/Index">مقالات</a></li>
-                            <li><a asp-area="Administration" asp-page="/Blog/ArticleCategories/Index">گروه مقالات</a></li>
+                            <li permission="@BlogPermissions.ListArticles"><a asp-area="Administration" asp-page="/Blog/Articles/Index">مقالات</a></li>
+                            <li permission="@BlogPermissions.ListArticleCategories"><a asp-area="Administration" asp-page="/Blog/ArticleCategories/Index">گروه مقالات</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a asp-area="Administration" asp-page="/Comments/Index" class="waves-effect"><i class="fa fa-comments"></i><span> کامنت ها </span></a>
-                    </li>
                 }
+
+                <li permission="@CommentPermissions.ListComments">
+                    <a asp-area="Administration" asp-page="/Comments/Index" class="waves-effect"><i class="fa fa-comments"></i><span> کامنت ها </span></a>
+                </li>
+
                 <li>
                     <a asp-page="/Login" asp-page-handler="LogOut" class="waves-effect"><i class="fa fa-sign-out"></i><span> خروج </span></a>
                 </li>

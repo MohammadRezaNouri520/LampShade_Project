@@ -1,6 +1,6 @@
 ﻿@page
 @model ServiceHost.Areas.Administration.Pages.Comments.IndexModel
-
+@using CommentManagement.Infrastructure.Configuration.Permissions;
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "| مدیریت کامنت ها";
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="@CommentPermissions.SearchComments">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="row" id="ProductCategoriesDiv">
+<div class="row" permission="@CommentPermissions.ListComments">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -84,18 +84,18 @@
 
                                             @if (!comment.IsConfirmed && !comment.IsCanceled)
                                             {
-                                                <a asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@comment.Id"
+                                                <a permission="@CommentPermissions.ConfirmComments" asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@comment.Id"
                                                    class="btn btn-success waves-effect waves-light m-b-5">
                                                     تایید
                                                 </a>
-                                                <a asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@comment.Id"
+                                                <a permission="@CommentPermissions.CancelComments" asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@comment.Id"
                                                    class="btn btn-danger waves-effect waves-light m-b-5">
                                                     کنسل
                                                 </a>
                                             }
                                             else if (comment.IsConfirmed)
                                             {
-                                                <a asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@comment.Id"
+                                                <a permission="@CommentPermissions.CancelComments" asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@comment.Id"
                                                    class="btn btn-danger waves-effect waves-light m-b-5">
                                                     کنسل
                                                 </a>

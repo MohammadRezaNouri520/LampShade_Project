@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SM.Infrastructure", "SM.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopManagement.Infrastructure.EFCore", "ShopManagement.Infrastructure.EFCore\ShopManagement.Infrastructure.EFCore.csproj", "{A6A566F0-2A0C-48D6-B0C5-83255367C0F5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopManagement.Configuration", "ShopManagement.Configuration\ShopManagement.Configuration.csproj", "{868644B9-5068-4652-835F-A37270B111B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopManagement.Infrastructure.Configuration", "ShopManagement.Configuration\ShopManagement.Infrastructure.Configuration.csproj", "{868644B9-5068-4652-835F-A37270B111B9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{37D3D091-8362-40E5-A515-E4BA4FC50D0A}"
 EndProject
@@ -79,7 +79,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BM.Infrastructure", "BM.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.EFCore", "BlogManagement.Infrastructure.EFCore\BlogManagement.Infrastructure.EFCore.csproj", "{11AFAACA-EECA-4F9F-BB25-B96C1BB60A67}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.Bootstrapper", "BlogManagement.Infrastructure.Bootstrapper\BlogManagement.Infrastructure.Bootstrapper.csproj", "{269B2923-5067-43DB-8429-C654F8A0DE29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Infrastructure.Configuration", "BlogManagement.Infrastructure.Bootstrapper\BlogManagement.Infrastructure.Configuration.csproj", "{269B2923-5067-43DB-8429-C654F8A0DE29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommentManagement", "CommentManagement", "{DF6AB6AC-62A5-4A54-B97D-014D900A1A7F}"
 EndProject

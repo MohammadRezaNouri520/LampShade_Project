@@ -2,6 +2,7 @@
 using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,10 @@ namespace AccountManagement.Infrastructure.EFCore.Repository
                 .Select(x => new EditRole
                 {
                     Id = x.Id,
-                    Title = x.Title
+                    Title = x.Title,
+                    Permissions = x.RolePermissions.Select(rp => rp.Code).ToList()
                 })
+                .AsNoTracking()
                 .FirstOrDefault(x => x.Id == id);
         }
 

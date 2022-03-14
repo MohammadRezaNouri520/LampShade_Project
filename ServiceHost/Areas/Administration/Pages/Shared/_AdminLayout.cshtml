@@ -33,6 +33,9 @@
     <link href="~/AdminTheme/assets/css/style.css" rel="stylesheet" type="text/css" />
     <link href="~/AdminTheme/assets/css/persian-datepicker.min.css" rel="stylesheet" />
 
+    <!-- Advanced Form CSS -->
+    @RenderSection("CSS", false)
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -216,7 +219,7 @@
     <script src="~/AdminTheme/assets/counterup/waypoints.min.js" type="text/javascript"></script>
     <script src="~/AdminTheme/assets/counterup/jquery.counterup.min.js" type="text/javascript"></script>
 
-    <!-- DataTable JS -->
+    <!-- DataTable JS --> <!-- Advanced Form JS -->
     @RenderSection("Scripts", false)
 
     <!-- CUSTOM JS -->
@@ -253,7 +256,8 @@
     <script>
         tinymce.init({
             selector: '.rich-text',
-            plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            //plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            plugins: 'autolink lists  media   table',
             toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',

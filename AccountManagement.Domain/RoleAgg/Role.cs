@@ -8,16 +8,17 @@ namespace AccountManagement.Domain.RoleAgg
     {
         public string Title { get; private set; }
         public List<Account> Accounts { get; private set; }
-
+        public List<RolePermissions> RolePermissions { get; private set; }
 
         public Role(string title)
         {
             Title = title;
         }
 
-        public void Edit(string title)
+        public void Edit(string title, List<RolePermissions> rolePermissions)
         {
             Title = title;
+            RolePermissions = rolePermissions;
         }
     }
 }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.CustomerDiscount;
+using DiscountManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,6 +22,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             _productApplication = productApplication;
         }
 
+        [NeedsPermission(DiscountPermissions.ListCustomerDiscounts)]
         public void OnGet(CustomerDiscountSearchModel searchModel)
         {
             Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
@@ -36,6 +39,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             return Partial("./Define", command);
         }
 
+        [NeedsPermission(DiscountPermissions.DefineCustomerDiscounts)]
         public JsonResult OnPostDefine(DefineCustomerDiscount command)
         {
             var resutl = _customerDiscountApplication.Define(command);
@@ -49,21 +53,24 @@ namespace ServiceHost.Areas.Administration.Pages.Discounts.CustomerDiscounts
             return Partial("./Edit", command);
         }
 
+        [NeedsPermission(DiscountPermissions.EditCustomerDiscounts)]
         public JsonResult OnPostEdit(EditCustomerDiscount command)
         {
             var result = _customerDiscountApplication.Edit(command);
             return new JsonResult(result);
         }
 
+        [NeedsPermission(DiscountPermissions.ActiveCustomerDiscounts)]
         public IActionResult OnGetActive(long id)
         {
             var result = _customerDiscountApplication.Active(id);
             return RedirectToPage("./Index");
         }
 
+        [NeedsPermission(DiscountPermissions.InactiveCustomerDiscounts)]
         public IActionResult OnGetInActive(long id)
         {
-            var result = _customerDiscountApplication.InActive(id);
+            var result = _customerDiscountApplication.Inactive(id);
             return RedirectToPage("./Index");
         }
     }

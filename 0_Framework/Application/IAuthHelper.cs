@@ -1,4 +1,6 @@
-﻿namespace _0_Framework.Application
+﻿using System.Collections.Generic;
+
+namespace _0_Framework.Application
 {
     public interface IAuthHelper
     {
@@ -7,5 +9,6 @@
         bool IsAuthenticated();
         AuthViewModel CurrentUserInfo();
         string CurrentUserRole();
+        List<int> GetCurrentUserPermissions();
     }
 }

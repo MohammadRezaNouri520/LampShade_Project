@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _0_Framework.Infrastructure;
 using InventoryManagement.Application.Contracts.Inventory;
+using InventoryManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,7 +27,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             _productApplication = productApplication;
         }
 
-
+        [NeedsPermission(InventoryPermissions.ListInventory)]
         public void OnGet(InventorySearchModel searchModel)
         {
             Inventory = _inventoryApplication.Search(searchModel);
@@ -42,6 +44,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return Partial("./Create", command);
         }
 
+        [NeedsPermission(InventoryPermissions.CreateInventory)]
         public JsonResult OnPostCreate(CreateInventory command)
         {
             var result = _inventoryApplication.Create(command);
@@ -55,6 +58,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return Partial("./Edit", command);
         }
 
+        [NeedsPermission(InventoryPermissions.EditInventory)]
         public JsonResult OnPostEdit(EditInventory command)
         {
             var result = _inventoryApplication.Edit(command);
@@ -67,6 +71,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return Partial("./Increase", command);
         }
 
+        [NeedsPermission(InventoryPermissions.IncreaseInventory)]
         public JsonResult OnPostIncrease(IncreaseInventory command)
         {
             var result = _inventoryApplication.Increase(command);
@@ -79,6 +84,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return Partial("./Reduce", command);
         }
 
+        [NeedsPermission(InventoryPermissions.ReduceInventory)]
         public JsonResult OnPostReduce(DecreaseInventory command)
         {
             var result = _inventoryApplication.Reduce(command);

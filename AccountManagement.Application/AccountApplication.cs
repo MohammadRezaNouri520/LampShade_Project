@@ -1,8 +1,10 @@
 ﻿using _0_Framework.Application;
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Domain.AccountAgg;
+using AccountManagement.Domain.RoleAgg;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AccountManagement.Application
 {
@@ -12,13 +14,15 @@ namespace AccountManagement.Application
         private readonly IFileUploader _fileUploader;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IAuthHelper _authHelper;
+        private readonly IRoleRepository _roleRepository;
 
-        public AccountApplication(IAccountRepository accountRepository, IFileUploader fileUploader, IPasswordHasher passwordHasher, IAuthHelper authHelper)
+        public AccountApplication(IAccountRepository accountRepository, IFileUploader fileUploader, IPasswordHasher passwordHasher, IAuthHelper authHelper, IRoleRepository roleRepository)
         {
             _accountRepository = accountRepository;
             _fileUploader = fileUploader;
             _passwordHasher = passwordHasher;
             _authHelper = authHelper;
+            _roleRepository = roleRepository;
         }
 
         public OperationResult ChangePassword(ChangePassword command)
@@ -88,11 +92,17 @@ namespace AccountManagement.Application
             if (!result.Verified)
                 return operation.Failed(ApplicationMessages.WrongUserNameOrPassword);
 
-            var authViewModel = new AuthViewModel(account.Id, account.FullName, account.UserName, account.RoleId, account.Role.Title);
+            var permissions = _roleRepository.Get(account.RoleId).RolePermissions.Select(x => x.Code).ToList();
+
+            var authViewModel = new AuthViewModel(account.Id, account.FullName, account.UserName, permissions, account.RoleId, account.Role.Title);
             _authHelper.SignIn(authViewModel);
             return operation.Succeeded();
         }
 
+        public void LogOut()
+        {
+            _authHelper.SignOut();
+        }
 
         public OperationResult Remove(long id)
         {
@@ -124,9 +134,5 @@ namespace AccountManagement.Application
             return _accountRepository.Search(searchModel);
         }
 
-        public void LogOut()
-        {
-            _authHelper.SignOut();
-        }
     }
 }

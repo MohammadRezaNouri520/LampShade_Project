@@ -2,6 +2,7 @@
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AccountManagement.Application
 {
@@ -36,7 +37,9 @@ namespace AccountManagement.Application
             if (_roleRepository.Exist(x => x.Title == command.Title && x.Id != command.Id))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
 
-            role.Edit(command.Title);
+            var permissions = command.Permissions.Select(code => new RolePermissions(code)).ToList();
+
+            role.Edit(command.Title, permissions);
             _roleRepository.SaveChanges();
             return operation.Succeeded();
         }

@@ -1,12 +1,12 @@
 ﻿@page
 @model ServiceHost.Areas.Administration.Pages.Accounts.Account.IndexModel
-
+@using AccountManagement.Infrastructure.Configuration.Permissions
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "| مدیریت کاربران";
 }
 
-<div class="row">
+<div class="row" permission="AccountPermissions.CreateAccount">
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="AccountPermissions.SearchAccounts">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -49,7 +49,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="AccountPermissions.ListAccounts">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -85,24 +85,24 @@
                                         <td>@account.Role</td>
                                         <td>@account.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5"
+                                            <a permission="AccountPermissions.EditAccount" class="btn btn-warning pull-right m-rl-5"
                                                href="#showmodal=@Url.Page("./Index","Edit", new {id=account.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            <a class="btn btn-primary pull-right m-rl-5"
+                                            <a permission="AccountPermissions.ChangePassword" class="btn btn-primary pull-right m-rl-5"
                                                href="#showmodal=@Url.Page("./Index","ChangePassword", new {id=account.Id})">
                                                 <i class="fa fa-key"></i> تغییر رمز عبور
                                             </a>
                                             @if (account.IsRemoved)
                                             {
-                                                <a class="btn btn-success pull-right m-rl-5"
+                                                <a permission="AccountPermissions.RestoreAccount" class="btn btn-success pull-right m-rl-5"
                                                    asp-page="./Index" asp-page-handler="Restore" asp-route-id="@account.Id">
                                                     <i class="fa fa-check"></i> فعالسازی
                                                 </a>
                                             }
                                             else
                                             {
-                                                <a class="btn btn-danger pull-right m-rl-5"
+                                                <a permission="AccountPermissions.RemoveAccount" class="btn btn-danger pull-right m-rl-5"
                                                    asp-page="./Index" asp-page-handler="Remove" asp-route-id="@account.Id">
                                                     <i class="fa fa-remove"></i> حذف
                                                 </a>

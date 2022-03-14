@@ -1,5 +1,7 @@
+using _0_Framework.Infrastructure;
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Application.Contracts.Role;
+using AccountManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,6 +27,8 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             _roleApplication = roleApplication;
         }
 
+
+        [NeedsPermissionAttribute(AccountPermissions.ListAccounts)]
         public void OnGet(AccountSearchModel searchModel)
         {
             Accounts = _accountApplication.Search(searchModel);
@@ -41,6 +45,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("Create", command);
         }
 
+        [NeedsPermission(AccountPermissions.CreateAccount)]
         public IActionResult OnPostCreate(RegisterAccount command)
         {
             if (!ModelState.IsValid)
@@ -51,6 +56,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return new JsonResult(result);
         }
 
+
         public IActionResult OnGetEdit(long id)
         {
             var command = _accountApplication.GetDetails(id);
@@ -58,6 +64,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("Edit", command);
         }
 
+        [NeedsPermission(AccountPermissions.EditAccount)]
         public IActionResult OnPostEdit(EditAccount command)
         {
             if (!ModelState.IsValid)
@@ -78,6 +85,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return Partial("ChangePassword", command);
         }
 
+        [NeedsPermission(AccountPermissions.ChangePassword)]
         public IActionResult OnPostChangePassword(ChangePassword command)
         {
             if (!ModelState.IsValid)
@@ -89,12 +97,14 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
             return new JsonResult(result);
         }
 
+        [NeedsPermission(AccountPermissions.RemoveAccount)]
         public IActionResult OnGetRemove(long id)
         {
             var result = _accountApplication.Remove(id);
             return RedirectToPage("./Index");
         }
 
+        [NeedsPermission(AccountPermissions.RestoreAccount)]
         public IActionResult OnGetRestore(long id)
         {
             var result = _accountApplication.Restore(id);

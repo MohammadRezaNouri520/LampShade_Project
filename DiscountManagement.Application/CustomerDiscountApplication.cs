@@ -69,7 +69,7 @@ namespace DiscountManagement.Application
             return operation.Succeeded();
         }
 
-        public OperationResult InActive(long id)
+        public OperationResult Inactive(long id)
         {
             var operation = new OperationResult();
             var customerDiscount = _customerDiscountRepository.Get(id);

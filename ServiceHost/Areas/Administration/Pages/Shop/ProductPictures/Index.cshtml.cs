@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _0_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductPicture;
+using ShopManagement.Infrastructure.Configuration.Permissions;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
 {
@@ -27,6 +29,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             _productApplication = productApplication;
         }
 
+        [NeedsPermission(ShopPermissions.ListProductPictures)]
         public void OnGet(ProductPictureSearchModel searchModel)
         {
             Products = new SelectList(_productApplication.GetProducts(), "Id", "Name");
@@ -43,6 +46,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return Partial("./Create", command);
         }
 
+        [NeedsPermission(ShopPermissions.CreateProductPicture)]
         public IActionResult OnPostCreate(CreateProductPicture command)
         {
             if(ModelState.IsValid)
@@ -60,6 +64,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return Partial("./Edit", command);
         }
 
+        [NeedsPermission(ShopPermissions.EditProductPicture)]
         public IActionResult OnPostEdit(EditProductPicture command)
         {
             if(ModelState.IsValid)
@@ -70,6 +75,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return new JsonResult(false);
         }
 
+        [NeedsPermission(ShopPermissions.RemoveProductPicture)]
         public IActionResult OnGetRemove(long id)
         {
             var result = _productPictureApplication.Remove(id);
@@ -80,6 +86,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPictures
             return RedirectToPage("./Index");
         }
 
+        [NeedsPermission(ShopPermissions.RestoreProductPicture)]
         public IActionResult OnGetRestore(long id)
         {
             var result = _productPictureApplication.Restore(id);

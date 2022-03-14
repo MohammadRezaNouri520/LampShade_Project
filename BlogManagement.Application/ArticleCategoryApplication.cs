@@ -16,7 +16,6 @@ namespace BlogManagement.Application
             _fileUploader = fileUploader;
         }
 
-
         public OperationResult Create(CreateArticleCategory command)
         {
             var operation = new OperationResult();

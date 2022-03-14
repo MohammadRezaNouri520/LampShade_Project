@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>BlogManagement.Infrastructure.Configuration</AssemblyName>
+    <RootNamespace>BlogManagement.Infrastructure.Configuration</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

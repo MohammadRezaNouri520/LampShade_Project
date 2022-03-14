@@ -1,12 +1,12 @@
 ﻿@page
 @model ServiceHost.Areas.Administration.Pages.Shop.Products.IndexModel
-
+@using ShopManagement.Infrastructure.Configuration.Permissions; 
 @{
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "| مدیریت محصولات";
 }
 
-<div class="row">
+<div class="row" permission="@ShopPermissions.CreateProduct">
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="@ShopPermissions.SearchProducts">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="row" id="ProductCategoriesDiv">
+<div class="row" permission="@ShopPermissions.ListProducts">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -79,7 +79,7 @@
                                         <td>@product.Category</td>
                                         <td>@product.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5"
+                                            <a permission="@ShopPermissions.EditProduct" class="btn btn-warning pull-right m-rl-5"
                                                href="#showmodal=@Url.Page("./Index","Edit", new {id=product.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a> 

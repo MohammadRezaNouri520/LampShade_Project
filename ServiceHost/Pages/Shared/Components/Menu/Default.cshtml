@@ -1,5 +1,6 @@
 ﻿@model _01_LampshadeQuery.MenuModel
 @inject _0_Framework.Application.IAuthHelper AuthHelper;
+@using _0_Framework.Infrastructure;
 
 <div class="header-area header-sticky">
     <div class="container">
@@ -48,8 +49,14 @@
                                     <a href="#">تماس با ما</a>
                                 </li>
                                 @*@if (User.Identity.IsAuthenticated)*@
-                                @if(AuthHelper.IsAuthenticated())
+                                @if (AuthHelper.IsAuthenticated())
                                 {
+                                    @if (AuthHelper.CurrentUserRole() == Roles.Administrator || AuthHelper.CurrentUserRole() == Roles.ContentManager || AuthHelper.CurrentUserRole() == Roles.SellManager)
+                                    {
+                                        <li>
+                                            <a asp-area="Administration" asp-page="/Index">ناحیه مدیریت</a>
+                                        </li>
+                                    }
                                     <li>
                                         <a asp-page="/Login" asp-page-handler="LogOut">خروج</a>
                                     </li>
